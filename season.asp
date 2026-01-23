@@ -1,0 +1,431 @@
+<%@ Language="VBScript" CodePage="936" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>雅安市纵横计算机网络有限公司---地球公转与节气的关系</title>
+<link rel="icon" href="img/zhlogo32.png" sizes="32x32" type="image/png">
+<style>
+    :root {
+        --primary: #2563eb;
+        --primary-light: #3b82f6;
+        --primary-dark: #1d4ed8;
+        --light-bg: #f1f5f9;
+        --card-bg: #ffffff;
+        --border-color: #e2e8f0;
+        --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s ease;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Microsoft YaHei", Arial, sans-serif;
+    }
+    body {
+        background-color: var(--light-bg);
+        color: #334155;
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    /* 导航栏 */
+    .nav {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 10px 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .nav a {
+        color: #64748b;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        transition: var(--transition);
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .nav a:hover {
+        color: var(--primary);
+        background-color: rgba(37, 99, 235, 0.08);
+        transform: translateY(-1px);
+    }
+    .nav a.active {
+        color: var(--primary);
+        font-weight: 500;
+        background-color: rgba(37, 99, 235, 0.05);
+    }
+    /* 头部 */
+    .header {
+        text-align: center;
+        padding: 20px 0 15px;
+        background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+        color: white;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .header-content {
+        position: relative;
+        z-index: 1;
+    }
+    .header h1 {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .header p {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    /* 内容区 */
+    .content-card {
+        background: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+        padding: 25px;
+        margin-bottom: 30px;
+        border-top: 3px solid var(--primary);
+    }
+    .content-title {
+        font-size: 1.2rem;
+        color: var(--primary-dark);
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    /* 表格样式 */
+    .season-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        overflow-x: auto;
+        display: block;
+    }
+    .season-table th, .season-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .season-table th {
+        background-color: var(--light-bg);
+        font-weight: 600;
+        color: var(--primary-dark);
+    }
+    .season-table tr:hover {
+        background-color: rgba(37, 99, 235, 0.03);
+    }
+    .season-table td {
+        font-size: 0.9rem;
+    }
+    /* 原理总结 */
+    .principle {
+        margin-top: 30px;
+    }
+    .principle h3 {
+        font-size: 1.1rem;
+        color: var(--primary-dark);
+        margin: 15px 0 10px;
+    }
+    .principle p {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+        line-height: 1.7;
+    }
+    .principle ul {
+        margin-left: 20px;
+        margin-bottom: 15px;
+    }
+    .principle li {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+    /* 页脚 */
+    .footer {
+        text-align: center;
+        padding: 30px 15px;
+        background-color: #1e293b;
+        color: #94a3b8;
+        font-size: 0.85rem;
+        margin-top: 50px;
+        border-top: 3px solid var(--primary);
+    }
+    .footer p {
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+    .footer p:last-child {
+        margin-bottom: 0;
+        margin-top: 12px;
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+    /* 响应式 */
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 1.4rem;
+        }
+        .nav-container {
+            gap: 8px;
+        }
+        .nav a {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        .content-card {
+            padding: 18px;
+        }
+        .season-table th, .season-table td {
+            padding: 10px 8px;
+        }
+    }
+</style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav">
+        <div class="nav-container">
+            <a href="index.asp">首页</a>
+            <a href="about.asp">公司简介</a>
+            <a href="business.asp">业务范围</a>
+            <a href="cooperate.asp">合作客户</a>
+            <a href="mytool.asp">税价计算器</a>
+            <a href="contact.asp">联系我们</a>
+            <a href="use_device_data_fix.asp">数据库</a>
+            <a href="cyaddr.asp" target="_blank">常用网址</a>
+            <a href="season.asp" class="active">地球公转与节气</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 头部标题 -->
+        <div class="header">
+            <div class="header-content">
+                <h1>地球公转与节气的关系</h1>
+                <p>清晰解析公转位置、太阳直射点与节气的对应逻辑 | 访问时间：<%=Now()%></p>
+            </div>
+        </div>
+
+        <!-- 内容卡片 -->
+        <div class="content-card">
+            <h2 class="content-title">核心逻辑：公转位置决定节气</h2>
+            <p>地球绕太阳公转时，地轴始终倾斜23.5°（黄赤交角），导致太阳直射点在南北回归线之间周期性移动，每移动15°（黄道360°÷24节气）对应一个节气。以下表格按四季排序，明确各节气的公转位置、直射点及核心现象：</p>
+
+            <!-- 节气表格 -->
+            <div class="season-table-container">
+                <table class="season-table">
+                    <tr>
+                        <th>季节</th>
+                        <th>节气</th>
+                        <th>地球公转位置（黄道角度）</th>
+                        <th>太阳直射点</th>
+                        <th>核心原因（位置→现象）</th>
+                    </tr>
+                    <!-- 春季 -->
+                    <tr>
+                        <td rowspan="6">春季</td>
+                        <td>立春</td>
+                        <td>315°</td>
+                        <td>南半球（南纬16.5°）</td>
+                        <td>冬至后15°，直射点北移，北半球气温回升，万物复苏（“春之始”）</td>
+                    </tr>
+                    <tr>
+                        <td>雨水</td>
+                        <td>330°</td>
+                        <td>南半球（南纬8.5°）</td>
+                        <td>直射点继续北移，北半球水汽增多，降雨概率增加（“降雨开始，雨量渐增”）</td>
+                    </tr>
+                    <tr>
+                        <td>惊蛰</td>
+                        <td>345°</td>
+                        <td>南半球（南纬0.5°）</td>
+                        <td>直射点接近赤道，地温回升，昆虫结束冬眠（“春雷惊虫”）</td>
+                    </tr>
+                    <tr>
+                        <td>春分</td>
+                        <td>0°（黄道起点）</td>
+                        <td>赤道（0°）</td>
+                        <td>太阳直射赤道，全球昼夜平分，此后直射点进入北半球（“春之中分”）</td>
+                    </tr>
+                    <tr>
+                        <td>清明</td>
+                        <td>15°</td>
+                        <td>北半球（北纬8.5°）</td>
+                        <td>直射点北移至北半球，日照充足，草木繁茂，适合扫墓踏青（“天气晴朗，草木青翠”）</td>
+                    </tr>
+                    <tr>
+                        <td>谷雨</td>
+                        <td>30°</td>
+                        <td>北半球（北纬16.5°）</td>
+                        <td>直射点继续北移，气温升高，降雨增多，利于谷物生长（“雨生百谷”）</td>
+                    </tr>
+                    <!-- 夏季 -->
+                    <tr>
+                        <td rowspan="6">夏季</td>
+                        <td>立夏</td>
+                        <td>45°</td>
+                        <td>北半球（北纬22.5°）</td>
+                        <td>春分后45°，直射点接近北回归线，北半球进入夏季（“夏之始”）</td>
+                    </tr>
+                    <tr>
+                        <td>小满</td>
+                        <td>60°</td>
+                        <td>北半球（北纬23.5°附近）</td>
+                        <td>直射点靠近北回归线，北方麦类灌浆饱满（“小满小满，麦粒渐满”）</td>
+                    </tr>
+                    <tr>
+                        <td>芒种</td>
+                        <td>75°</td>
+                        <td>北半球（北纬23.5°附近）</td>
+                        <td>直射点在北回归线徘徊，南方水稻播种、北方麦类成熟（“忙种，农事最忙”）</td>
+                    </tr>
+                    <tr>
+                        <td>夏至</td>
+                        <td>90°</td>
+                        <td>北回归线（北纬23.5°）</td>
+                        <td>太阳直射北回归线，北半球昼最长、夜最短，正午太阳高度角最大（“夏之极致”）</td>
+                    </tr>
+                    <tr>
+                        <td>小暑</td>
+                        <td>105°</td>
+                        <td>北半球（北纬22.5°）</td>
+                        <td>直射点开始南移，北半球受积温影响，气温达全年次高（“小热，未到极致”）</td>
+                    </tr>
+                    <tr>
+                        <td>大暑</td>
+                        <td>120°</td>
+                        <td>北半球（北纬16.5°）</td>
+                        <td>直射点继续南移，北半球热量积累最多，气温最高、湿度最大（“大暑热不透，大热在秋后”）</td>
+                    </tr>
+                    <!-- 秋季 -->
+                    <tr>
+                        <td rowspan="6">秋季</td>
+                        <td>立秋</td>
+                        <td>135°</td>
+                        <td>北半球（北纬8.5°）</td>
+                        <td>夏至后45°，直射点南移明显，北半球气温开始下降（“秋之始”）</td>
+                    </tr>
+                    <tr>
+                        <td>处暑</td>
+                        <td>150°</td>
+                        <td>北半球（北纬0.5°）</td>
+                        <td>直射点接近赤道，“出暑”，北半球暑气消退，早晚变凉</td>
+                    </tr>
+                    <tr>
+                        <td>白露</td>
+                        <td>165°</td>
+                        <td>南半球（南纬8.5°）</td>
+                        <td>直射点进入南半球，北半球夜间气温降低，水汽凝结成白露（“白露生，秋意浓”）</td>
+                    </tr>
+                    <tr>
+                        <td>秋分</td>
+                        <td>180°</td>
+                        <td>赤道（0°）</td>
+                        <td>太阳直射赤道，全球再次昼夜平分，此后直射点持续南移（“秋之中分”）</td>
+                    </tr>
+                    <tr>
+                        <td>寒露</td>
+                        <td>195°</td>
+                        <td>南半球（南纬16.5°）</td>
+                        <td>直射点南移，北半球气温进一步下降，露水变凉（“寒露生，寒意起”）</td>
+                    </tr>
+                    <tr>
+                        <td>霜降</td>
+                        <td>210°</td>
+                        <td>南半球（南纬22.5°）</td>
+                        <td>直射点靠近南回归线，北半球气温降至0℃左右，水汽凝结成霜（“霜降杀百草”）</td>
+                    </tr>
+                    <!-- 冬季 -->
+                    <tr>
+                        <td rowspan="6">冬季</td>
+                        <td>立冬</td>
+                        <td>225°</td>
+                        <td>南半球（南纬23.5°附近）</td>
+                        <td>秋分后45°，直射点在南回归线徘徊，北半球进入冬季（“冬之始”）</td>
+                    </tr>
+                    <tr>
+                        <td>小雪</td>
+                        <td>240°</td>
+                        <td>南半球（南纬22.5°）</td>
+                        <td>直射点北移（仍在南半球），北半球冷空气活动频繁，开始降雪（“小雪雪满天，来岁必丰年”）</td>
+                    </tr>
+                    <tr>
+                        <td>大雪</td>
+                        <td>255°</td>
+                        <td>南半球（南纬16.5°）</td>
+                        <td>直射点继续北移，北半球降雪量增大、范围扩大（“大雪，雪量盛也”）</td>
+                    </tr>
+                    <tr>
+                        <td>冬至</td>
+                        <td>270°</td>
+                        <td>南回归线（南纬23.5°）</td>
+                        <td>太阳直射南回归线，北半球昼最短、夜最长，正午太阳高度角最小（“冬之极致”）</td>
+                    </tr>
+                    <tr>
+                        <td>小寒</td>
+                        <td>285°</td>
+                        <td>南半球（南纬8.5°）</td>
+                        <td>直射点北移，北半球仍受冷空气控制，气温达全年次低（“小寒大寒，冻成一团”）</td>
+                    </tr>
+                    <tr>
+                        <td>大寒</td>
+                        <td>300°</td>
+                        <td>南半球（南纬0.5°）</td>
+                        <td>直射点接近赤道，北半球热量最少，气温最低（“大寒，岁终寒极”），随后进入新周期</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 核心原理总结 -->
+            <div class="principle">
+                <h3>一、核心原理总结（为什么是这些位置对应这些节气？）</h3>
+                <p>1. <strong>公转是根本动力</strong>：地球绕太阳公转一周约365天，黄道（公转轨道平面）与赤道平面夹角23.5°（黄赤交角），导致太阳直射点只能在南北回归线之间移动（南纬23.5°→北纬23.5°→南纬23.5°），无法固定在某一位置。</p>
+                <p>2. <strong>15°=1个节气</strong>：太阳直射点移动360°对应完整公转周期，因此每移动15°定义一个节气，24个节气刚好覆盖全年，形成“节气链”。</p>
+                <p>3. <strong>关键节点决定四季</strong>：</p>
+                <ul>
+                    <li>二分（春分、秋分）：直射赤道，全球昼夜平分，是四季的“转折点”（春分→夏、秋分→冬）；</li>
+                    <li>二至（夏至、冬至）：直射回归线，是昼夜长短和气温的“极值点”（夏至昼最长、冬至昼最短）；</li>
+                    <li>其他节气：是二分二至之间的“过渡状态”，反映气温、降水、物候的渐变（如立春→谷雨“暖化+降雨增多”，立秋→霜降“降温+凝露成霜”）。</li>
+                </ul>
+                <p><strong>简单来说</strong>：节气就是地球公转轨道上的“24个坐标点”，每个点对应太阳直射的特定位置，而直射位置直接决定北半球的季节、昼夜和气候——这也是节气能指导农业生产、反映自然变化的本质原因。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <p>地址：四川省雅安市健康路112号、126号</p>
+        <p>联系电话：0835-2232136 | 技术支持热线：0835-6208811，13881609876</p>
+        <p>&copy; 2025 雅安市纵横计算机网络有限公司 版权所有</p>
+    </div>
+</body>
+</html>

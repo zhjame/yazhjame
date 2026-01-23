@@ -1,0 +1,376 @@
+<%@ Language="VBScript" %>  <!-- ASP基础声明（指定脚本语言，静态页面可省略但建议保留） -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅安市纵横计算机网络有限公司 - 专业IT解决方案服务商</title>
+    <link rel="icon" href="img/zhlogo32.png" sizes="32x32" type="image/png">
+    <style>
+        /* 基础样式优化 */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: "Microsoft YaHei", sans-serif; 
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 头部优化 */
+        .header { 
+            background: #0066CC; 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center;
+            background-image: linear-gradient(135deg, #0066CC 0%, #0052a3 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 导航优化 */
+        .nav { 
+            background: #F5F5F5; 
+            padding: 12px 10px; 
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav a { 
+            margin: 0 18px; 
+            color: #333; 
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 5px 0;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .nav a:hover { 
+            color: #0066CC; 
+        }
+        .nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #0066CC;
+            transition: width 0.3s;
+        }
+        .nav a:hover:after {
+            width: 100%;
+        }
+        .nav a.active {
+            color: #0066CC;
+            font-weight: 500;
+        }
+        .nav a.active:after {
+            width: 100%;
+        }
+
+        /* 内容区优化 */
+        .content { 
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .section-title { 
+            color: #0066CC; 
+            border-bottom: 2px solid #E0E0E0; 
+            padding-bottom: 12px;
+            margin: 40px 0 25px;
+            font-size: 1.8rem;
+            position: relative;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 2px;
+            background-color: #0066CC;
+            bottom: -2px;
+            left: 0;
+        }
+
+        /* 客户展示优化 */
+        .client-category {
+            margin-bottom: 40px;
+        }
+        .client-category h3 {
+            color: #444;
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+            padding-left: 10px;
+            border-left: 3px solid #0066CC;
+        }
+        .client-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .client-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 3px solid #0066CC;
+        }
+        .client-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .client-name {
+            font-weight: bold;
+            color: #0066CC;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #eee;
+        }
+        .合作项目 {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* 案例展示优化 */
+        .case-showcase {
+            margin-top: 25px;
+        }
+        .case-item {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s;
+        }
+        .case-item:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .case-img {
+            width: 30%;
+            background: #f0f5ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0066CC;
+            font-weight: bold;
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 1px solid #f0f5ff;
+        }
+        .case-content {
+            width: 70%;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+        .case-content h4 {
+            margin: 0 0 15px;
+            color: #0066CC;
+            font-size: 1.2rem;
+        }
+        .case-content p {
+            margin: 0 0 12px;
+            color: #555;
+        }
+
+        /* 合作模式优化 */
+        .cooperation-model {
+            margin-top: 30px;
+        }
+        .model-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .model-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .model-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .model-item h4 {
+            margin: 0 0 15px;
+            color: #0066CC;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+        .model-item h4:before {
+            content: '•';
+            color: #0066CC;
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        .model-item p {
+            margin: 0;
+            color: #666;
+        }
+
+        /* 页脚优化 */
+        .footer { 
+            background: #333; 
+            color: white; 
+            text-align: center; 
+            padding: 30px 20px; 
+            margin-top: 60px;
+            font-size: 0.95rem;
+        }
+        .footer p {
+            margin: 8px 0;
+            opacity: 0.9;
+        }
+        .footer p:first-child {
+            margin-bottom: 15px;
+        }
+
+        /* 响应式优化 */
+        @media (max-width: 768px) {
+            .client-grid, .model-list {
+                grid-template-columns: 1fr;
+            }
+            .case-item {
+                flex-direction: column;
+            }
+            .case-img, .case-content {
+                width: 100%;
+            }
+            .case-img {
+                padding: 30px 20px;
+                border-right: none;
+                border-bottom: 1px solid #f0f5ff;
+            }
+            .nav a {
+                margin: 0 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>雅安市纵横计算机网络有限公司</h1>
+        <p>诚信为本 · 您的满意是我们最大的荣誉</p>
+    </div>
+
+    <!-- 导航链接：当前页面添加active类 -->
+    <div class="nav">
+        <a href="index.asp">首页</a>
+        <a href="about.asp">公司简介</a>
+        <a href="business.asp">业务范围</a>
+        <a href="cooperate.asp" class="active">合作客户</a>
+        <a href="mytool.asp">税价计算器</a>
+        <a href="contact.asp">联系我们</a>
+        <a href="cyaddr.asp" target="_blank">常用网址</a>
+    </div>
+
+    <!-- 合作客户内容区 -->
+    <div class="content">
+        <h2 class="section-title">合作客户一览</h2>
+        <p>自1999年成立以来，我们已为政府机关、企事业单位等5000余家客户提供专业IT服务。</p>
+
+        <div class="client-category">
+            <h3>政府机关与事业单位</h3>
+            <div class="client-grid">
+                <div class="client-card">
+                    <div class="client-name">雅安市地税局</div>
+                    <div class="合作项目">局域网升级改造<br>安防监控系统部署<br>设备定期维护服务</div>
+                </div>
+                <div class="client-card">
+                    <div class="client-name">雅安市教育局</div>
+                    <div class="合作项目">校园网络集成方案<br>多媒体教室设备安装<br>教师办公设备采购</div>
+                </div>
+                <div class="client-card">
+                    <div class="client-name">雅安市人民医院</div>
+                    <div class="合作项目">医疗设备网络搭建<br>数据备份系统部署<br>终端安全防护服务</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="client-category">
+            <h3>大型企业与集团</h3>
+            <div class="client-grid">
+                <div class="client-card">
+                    <div class="client-name">中国移动雅安分公司</div>
+                    <div class="合作项目">办公系统集成<br>视频会议设备安装<br>年度IT运维服务</div>
+                </div>
+                <div class="client-card">
+                    <div class="client-name">雅安电力集团</div>
+                    <div class="合作项目">电力监控网络搭建<br>服务器机房建设<br>网络安全防护方案</div>
+                </div>
+                <div class="client-card">
+                    <div class="client-name">雅安市商业银行</div>
+                    <div class="合作项目">网点设备采购与部署<br>数据加密系统实施<br>应急故障响应服务</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="section-title">典型合作案例</h2>
+            <div class="case-showcase">
+                <div class="case-item">
+                    <div class="case-img">项目现场图</div>
+                    <div class="case-content">
+                        <h4>中国移动雅安分公司全业务运维项目</h4>
+                        <p><strong>项目内容：</strong>为12个营业网点提供全方位IT运维服务，包括网络设备管理、终端故障处理、数据备份与恢复等。</p>
+                        <p><strong>实施成果：</strong>系统故障率降低65%，故障响应时间缩短至2小时内，年度运维成本降低30%。</p>
+                    </div>
+                </div>
+                <div class="case-item">
+                    <div class="case-img">项目现场图</div>
+                    <div class="case-content">
+                        <h4>雅安市地税局网络安全升级工程</h4>
+                        <p><strong>项目内容：</strong>部署新一代防火墙、入侵检测系统，建立数据加密传输通道，实施安全审计机制。</p>
+                        <p><strong>实施成果：</strong>通过国家网络安全等级保护三级认证，成功抵御12次网络攻击尝试。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cooperation-model">
+            <h2 class="section-title">我们的合作模式</h2>
+            <div class="model-list">
+                <div class="model-item">
+                    <h4>年度运维服务</h4>
+                    <p>提供固定周期的设备巡检、故障处理、系统优化等全包服务，适合长期稳定需求的客户。</p>
+                </div>
+                <div class="model-item">
+                    <h4>项目制合作</h4>
+                    <p>针对特定IT建设项目提供从设计到实施的全流程服务，按项目验收结算。</p>
+                </div>
+                <div class="model-item">
+                    <h4>设备采购+服务捆绑</h4>
+                    <p>结合硬件采购提供安装调试、培训及质保期内免费维护，实现"一站式"解决方案。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>地址：四川省雅安市健康路112号、126号 | 联系电话：0835-2232136 | 技术支持热线：0835-6208811，13881609876</p>
+        <p>© 2025 雅安市纵横计算机网络有限公司 版权所有</p>
+    </div>
+</body>
+</html>

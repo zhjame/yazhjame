@@ -1,0 +1,253 @@
+<%@ Language="VBScript" %>
+<% Response.CodePage = 65001 %> <!-- 与官网UTF-8编码统一 -->
+<% Response.Charset = "UTF-8" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片浏览 - 雅安市纵横计算机网络有限公司</title>
+    <style>
+        /* 100%复用官网基础样式 */
+        body { margin: 0; padding: 0; font-family: "Microsoft YaHei"; }
+        .header { background: #0066CC; color: white; padding: 20px; text-align: center; }
+        .nav { background: #F5F5F5; padding: 10px; text-align: center; }
+        .nav a { margin: 0 15px; color: #333; text-decoration: none; }
+        .nav a:hover { color: #0066CC; }
+        .nav a.active { color: #0066CC; font-weight: bold; }
+        .content { width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .section { margin-bottom: 50px; }
+        .section h2 { color: #0066CC; border-bottom: 2px solid #E0E0E0; padding-bottom: 10px; }
+        .footer { background: #333; color: white; text-align: center; padding: 15px; margin-top: 50px; }
+        
+        /* 图片浏览专属样式（美观+实用） */
+        .file-selector { background: #F9F9F9; padding: 25px; border-radius: 8px; border: 1px solid #E0E0E0; margin-bottom: 30px; display: flex; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .file-selector label { color: #333; font-weight: 500; }
+        .file-selector select, .file-selector button { padding: 10px 15px; font-size: 14px; border: 1px solid #ddd; border-radius: 4px; font-family: "Microsoft YaHei"; }
+        .file-selector select { min-width: 180px; }
+        .file-selector button { background: #0066CC; color: white; border: none; cursor: pointer; transition: background 0.3s ease; }
+        .file-selector button:hover { background: #0052CC; }
+        .file-selector .btn-reset { background: #F5F5F5; color: #666; border: 1px solid #ddd; }
+        .file-selector .btn-reset:hover { background: #EEE; color: #333; }
+        
+        /* 图片网格布局（响应式） */
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; margin-top: 30px; }
+        .image-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .image-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.12); }
+        .image-preview { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid #F0F0F0; }
+        .image-info { padding: 12px; text-align: center; }
+        .image-name { color: #333; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .image-path { color: #999; font-size: 12px; margin-top: 5px; }
+        
+        /* 大图预览模态框 */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center; }
+        .modal-content { max-width: 90%; max-height: 90%; border: 4px solid white; border-radius: 8px; }
+        .modal-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+        .modal-close:hover { color: #0066CC; }
+        
+        /* 提示信息样式 */
+        .tip { color: #666; line-height: 1.8; margin: 20px 0; padding: 15px; background: #F0F7FF; border-left: 4px solid #0066CC; border-radius: 4px; }
+        .error-tip { color: #D32F2F; padding: 15px; background: #FFF8F8; border-left: 4px solid #D32F2F; border-radius: 4px; margin: 20px 0; }
+        
+        /* 响应式适配 */
+        @media (max-width: 1200px) {
+            .content { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .nav a { margin: 0 8px; font-size: 13px; }
+            .file-selector { flex-direction: column; align-items: stretch; }
+            .image-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+            .image-preview { height: 120px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 复用官网头部 -->
+    <div class="header">
+        <h1>雅安市纵横计算机网络有限公司</h1>
+        <p>诚信为本 · 您的满意是我们最大的荣誉</p>
+    </div>
+    
+    <!-- 导航栏（新增“图片浏览”入口，标记为当前页） -->
+<div class="nav">
+        <a href="index.asp">首页</a>
+        <a href="about.asp">公司简介</a>
+        <a href="business.asp">业务范围</a>
+        <a href="cooperate.asp">合作客户</a>
+        <a href="mytool.asp">实用工具</a>
+        <a href="contact.asp">联系我们</a>
+        <a href="use_device_data_fix.asp">数据库</a>
+      <a href="https://taitoubiao.com/website" target="_blank" >常用网址</a>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2>图片浏览（选盘符→选文件夹→预览）</h2>
+        </div>
+        
+        <!-- 提示信息 -->
+        <div class="tip">
+            <strong>操作说明：</strong> 1. 选择要浏览的盘符 → 2. 选择该盘符下的文件夹 → 3. 页面将显示文件夹内所有图片（支持JPG、PNG、GIF、BMP格式）；点击图片可查看大图。
+        </div>
+        
+        <%
+            ' ===================== 核心功能逻辑 =====================
+            ' 自定义函数：获取系统可用盘符（排除软驱、网络驱动器）
+            Function GetAvailableDrives()
+                Dim fso, drive, drivesHTML
+                Set fso = Server.CreateObject("Scripting.FileSystemObject")
+                drivesHTML = "<option value=''>请选择盘符</option>"
+                
+                For Each drive In fso.Drives
+                    ' 只显示本地硬盘（DriveType=2）和可移动设备（DriveType=1，如U盘）
+                    If drive.IsReady And (drive.DriveType = 2 Or drive.DriveType = 1) Then
+                        drivesHTML = drivesHTML & "<option value='" & drive.Path & "' " & IIF(Request.Form("drive")=drive.Path, "selected", "") & ">" & drive.Path & " (" & drive.VolumeName & ")</option>"
+                    End If
+                Next
+                Set fso = Nothing
+                GetAvailableDrives = drivesHTML
+            End Function
+            
+            ' 自定义函数：根据盘符获取文件夹列表
+            Function GetFoldersByDrive(drivePath)
+                Dim fso, folder, foldersHTML
+                Set fso = Server.CreateObject("Scripting.FileSystemObject")
+                foldersHTML = "<option value=''>请选择文件夹</option>"
+                
+                If fso.FolderExists(drivePath) Then
+                    For Each folder In fso.GetFolder(drivePath).SubFolders
+                        ' 排除系统文件夹和隐藏文件夹
+                        If Not (Left(folder.Name, 1) = "." Or folder.Attributes And 2) Then
+                            foldersHTML = foldersHTML & "<option value='" & folder.Path & "' " & IIF(Request.Form("folder")=folder.Path, "selected", "") & ">" & folder.Name & "</option>"
+                        End If
+                    Next
+                End If
+                Set fso = Nothing
+                GetFoldersByDrive = foldersHTML
+            End Function
+            
+            ' 自定义函数：根据文件夹路径获取图片列表
+            Function GetImagesByFolder(folderPath)
+                Dim fso, file, imageExt, imagesHTML
+                imageExt = Array("jpg", "jpeg", "png", "gif", "bmp") ' 支持的图片格式
+                Set fso = Server.CreateObject("Scripting.FileSystemObject")
+                imagesHTML = ""
+                
+                If fso.FolderExists(folderPath) Then
+                    On Error Resume Next
+                    For Each file In fso.GetFolder(folderPath).Files
+                        ' 筛选图片格式
+                        If UBound(Filter(imageExt, LCase(fso.GetExtensionName(file.Name)))) <> -1 Then
+                            ' 图片卡片HTML
+                            imagesHTML = imagesHTML & "<div class='image-card' onclick='openModal('" & Server.URLEncode(file.Path) & "')'>"
+                            imagesHTML = imagesHTML & "<img src='file:///" & Replace(file.Path, "\", "/") & "' class='image-preview' alt='" & file.Name & "' onerror='this.src=''data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjkwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgOTAiPgogIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjgwIiByeD0iMTUiIGZpbGw9IiNlMGUwZTAiLz4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjE1IiBmaWxsPSIjMDA2NkNDIi8+CiAgICA8cGF0aCBkPSJNMzAgNzBDMzAgNzAgNDUgNjAgNTAgNjBDNTUgNjAgNzAgNzAgNzAgNzAiIHN0cm9rZT0iIzAwNjZDQyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPC9nPgo8L3N2Zz4=';'>"
+                            imagesHTML = imagesHTML & "<div class='image-info'>"
+                            imagesHTML = imagesHTML & "<div class='image-name'>" & file.Name & "</div>"
+                            imagesHTML = imagesHTML & "<div class='image-path'>" & Left(folderPath, 30) & "..." & "</div>"
+                            imagesHTML = imagesHTML & "</div></div>"
+                        End If
+                    Next
+                    On Error GoTo 0
+                End If
+                
+                ' 无图片提示
+                If imagesHTML = "" Then
+                    imagesHTML = "<div class='error-tip'>当前文件夹中未找到支持的图片文件（支持JPG、PNG、GIF、BMP格式）</div>"
+                End If
+                
+                Set fso = Nothing
+                GetImagesByFolder = imagesHTML
+            End Function
+            
+            ' 自定义IIF函数
+            Function IIF(condition, valTrue, valFalse)
+                If condition Then IIF = valTrue Else IIF = valFalse
+            End Function
+            
+            ' 权限检查提示
+            Dim permissionTip
+            permissionTip = "<div class='tip'><strong>权限提示：</strong>如果无法显示文件夹/图片，请确保IIS匿名用户（IUSR）拥有该盘符/文件夹的读取权限（右键文件夹→属性→安全→编辑→添加→输入IUSR→授予读取权限）。</div>"
+        %>
+        
+        <!-- 盘符+文件夹选择表单 -->
+        <form method="post" action="image_browser.asp" class="file-selector">
+            <label for="drive">1. 选择盘符：</label>
+            <select id="drive" name="drive" required onchange="this.form.submit()">
+                <%= GetAvailableDrives() %>
+            </select>
+            
+            <label for="folder">2. 选择文件夹：</label>
+            <select id="folder" name="folder" required onchange="this.form.submit()">
+                <% If Request.Form("drive") <> "" Then %>
+                    <%= GetFoldersByDrive(Request.Form("drive")) %>
+                <% Else %>
+                    <option value="">请先选择盘符</option>
+                <% End If %>
+            </select>
+            
+            <button type="submit">刷新图片列表</button>
+            <button type="reset" class="btn-reset" onclick="window.location.href='image_browser.asp'">重置选择</button>
+        </form>
+        
+        <!-- 权限提示 -->
+        <%= permissionTip %>
+        
+        <!-- 图片展示区域 -->
+        <div class="image-container">
+            <% If Request.Form("folder") <> "" Then %>
+                <h3 style="color: #333; margin-bottom: 15px;">当前路径：<%= Request.Form("folder") %></h3>
+                <div class="image-grid">
+                    <%= GetImagesByFolder(Request.Form("folder")) %>
+                </div>
+            <% Else %>
+                <div class="tip">请选择盘符和文件夹，即可显示该文件夹下的所有图片</div>
+            <% End If %>
+        </div>
+        
+        <!-- 大图预览模态框 -->
+        <div class="modal" id="imageModal">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+    </div>
+
+    <!-- 复用官网页脚 -->
+    <div class="footer">
+        <p>地址：四川省雅安市健康路112号、126号 | 联系电话：0835-2232136 | 技术支持热线：0835-6208811</p>
+        <p>? 2025 雅安市纵横计算机网络有限公司 版权所有</p>
+    </div>
+
+    <!-- 图片预览JS -->
+    <script>
+        // 模态框操作
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        
+        function openModal(imagePath) {
+            modal.style.display = "flex";
+            // 解码路径并转换为本地文件URL
+            const decodedPath = decodeURIComponent(imagePath);
+            modalImage.src = "file:///" + decodedPath.replace(/\\/g, "/");
+        }
+        
+        function closeModal() {
+            modal.style.display = "none";
+            modalImage.src = ""; // 清空图片，避免缓存
+        }
+        
+        // 点击模态框背景关闭
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+        
+        // 键盘ESC关闭
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape" && modal.style.display === "flex") {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

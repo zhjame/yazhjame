@@ -1,0 +1,242 @@
+<%@ Language="VBScript" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>实用工具 - 税价计算器 | 雅安市纵横计算机网络有限公司</title>
+    <style>
+        /* 完全复用主站样式，保持视觉统一 */
+        body { margin: 0; padding: 0; font-family: "Microsoft YaHei", sans-serif; line-height: 1.7; color: #333; }
+        .header { background: #0066CC; color: white; padding: 20px; text-align: center; }
+        .nav { background: #F5F5F5; padding: 12px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav a { margin: 0 18px; color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav a:hover { color: #0066CC; }
+        .nav a.active { color: #0066CC; font-weight: bold; } /* 当前页高亮 */
+        .content { width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .section { margin-bottom: 60px; }
+        .section-title { color: #0066CC; border-bottom: 2px solid #E0E0E0; padding-bottom: 10px; margin: 0 0 30px; }
+        .footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 60px; }
+        
+        /* 美化税价计算器（贴合主站风格） */
+        .tax-calculator {
+            background: #f9f9f9;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-top: 10px;
+            border: 1px solid #e8f4ff;
+        }
+        .input-group { margin-bottom: 2rem; }
+        .input-group label { 
+            display: block; 
+            margin-bottom: 0.8rem; 
+            color: #333; 
+            font-weight: 500;
+            font-size: 16px;
+        }
+        .input-group input { 
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+            font-family: inherit; 
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #0066CC;
+            box-shadow: 0 0 0 2px rgba(0,102,204,0.1);
+        }
+        .tax-btn { 
+            background: #0066CC; 
+            color: white; 
+            border: none; 
+            padding: 12px 30px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .tax-btn:hover { 
+            background: #0052a3; 
+        }
+        .precision-switch { 
+            margin: 1.5rem 0; 
+            display: flex; 
+            gap: 1rem; 
+            align-items: center;
+        }
+        .precision-btn { 
+            padding: 8px 16px; 
+            border: 1px solid #ddd; 
+            cursor: pointer; 
+            border-radius: 4px; 
+            background: #f5f5f5;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .precision-btn.active { 
+            background: #0066CC; 
+            color: white;
+            border-color: #0066CC;
+        }
+        .precision-btn:hover:not(.active) {
+            border-color: #0066CC;
+            color: #0066CC;
+        }
+        .tax-result { 
+            margin-top: 2rem; 
+            padding: 1.5rem; 
+            background: #e8f4ff; 
+            border-radius: 4px;
+            border-left: 4px solid #0066CC;
+        }
+        .tax-result p {
+            margin: 0.8rem 0;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .verify-result { 
+            margin-top: 1.5rem; 
+            padding: 1.2rem; 
+            border-radius: 4px;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+        }
+        .verify-result p {
+            margin: 0.5rem 0;
+            font-size: 15px;
+        }
+        .valid { 
+            background: #d4edda; 
+            color: #155724; 
+            padding: 4px 8px; 
+            border-radius: 3px;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+        .invalid { 
+            background: #f8d7da; 
+            color: #721c24; 
+            padding: 4px 8px; 
+            border-radius: 3px;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+        .tax-error { 
+            color: #dc3545; 
+            font-size: 0.9rem; 
+            margin-top: 0.5rem; 
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>雅安市纵横计算机网络有限公司</h1>
+        <p>诚信为本 · 您的满意是我们最大的荣誉</p>
+    </div>
+    <!-- 导航栏与主站完全一致，当前页添加active类高亮 -->
+<div class="nav">
+        <a href="index.asp">首页</a>
+        <a href="about.asp">公司简介</a>
+        <a href="business.asp">业务范围</a>
+        <a href="cooperate.asp">合作客户</a>
+        <a href="mytool.asp">实用工具</a>
+        <a href="contact.asp">联系我们</a>
+        <a href="use_device_data_fix.asp">数据库</a>
+      <a href="https://taitoubiao.com/website" target="_blank" >常用网址</a>
+    </div>
+    <div class="content">
+        <!-- 标题使用统一的section-title类，与其他页面一致 -->
+        <div class="section">
+            <h2 class="section-title">实用工具 - 税价计算器</h2>
+            <div class="tax-calculator">
+                <div class="input-group">
+                    <label for="taxRate">税率（%）：</label>
+                    <input type="number" id="taxRate" step="0.01" placeholder="例如：13 表示13%">
+                    <div class="tax-error" id="taxRateError">请输入有效的税率（0-100）</div>
+                </div>
+                <div class="input-group">
+                    <label for="totalAmount">含税金额：</label>
+                    <input type="number" id="totalAmount" step="0.01" placeholder="请输入含税总金额">
+                    <div class="tax-error" id="amountError">请输入有效的金额</div>
+                </div>
+                <div class="precision-switch">
+                    <div class="precision-btn active" onclick="setPrecision(2)">2位小数</div>
+                    <div class="precision-btn" onclick="setPrecision(4)">4位小数</div>
+                </div>
+                <button class="tax-btn" onclick="calculate()">计算</button>
+                <div class="tax-result">
+                    <p>不含税金额：<span id="exTaxAmount2">0.00</span> (<span id="exTaxAmount4">0.0000</span>)</p>
+                    <p>税额：<span id="taxAmount2">0.00</span> (<span id="taxAmount4">0.0000</span>)</p>
+                </div>
+                <div id="verifyResult" class="verify-result"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 页脚与主站完全一致 -->
+    <div class="footer">
+        <p>地址：四川省雅安市健康路112号、126号 | 联系电话：0835-2232136 | 技术支持热线：0835-6208811</p>
+        <p>© 2025 雅安市纵横计算机网络有限公司 版权所有</p>
+    </div>
+    <!-- 原有功能JS完全保留，无修改 -->
+    <script>
+        let currentPrecision = 2;
+        function setPrecision(precision) {
+            currentPrecision = precision;
+            document.querySelectorAll('.precision-btn').forEach(btn => btn.classList.toggle('active', parseInt(btn.textContent) === precision));
+            if(document.getElementById('taxRate').value && document.getElementById('totalAmount').value) calculate();
+        }
+        function validateInputs() {
+            let isValid = true;
+            const taxRate = parseFloat(document.getElementById('taxRate').value);
+            const totalAmount = parseFloat(document.getElementById('totalAmount').value);
+            const taxRateError = document.getElementById('taxRateError');
+            if (isNaN(taxRate) || taxRate <= 0 || taxRate > 100) { taxRateError.style.display = 'block'; isValid = false; }
+            else { taxRateError.style.display = 'none'; }
+            const amountError = document.getElementById('amountError');
+            if (isNaN(totalAmount) || totalAmount <= 0) { amountError.style.display = 'block'; isValid = false; }
+            else { amountError.style.display = 'none'; }
+            return isValid;
+        }
+        function calculate() {
+            if (!validateInputs()) return;
+            const taxRate = parseFloat(document.getElementById('taxRate').value) / 100;
+            const totalAmount = parseFloat(document.getElementById('totalAmount').value);
+            const exTaxAmount = totalAmount / (1 + taxRate);
+            const taxAmount = totalAmount - exTaxAmount;
+            document.getElementById('exTaxAmount2').textContent = exTaxAmount.toFixed(2);
+            document.getElementById('exTaxAmount4').textContent = exTaxAmount.toFixed(4);
+            document.getElementById('taxAmount2').textContent = taxAmount.toFixed(2);
+            document.getElementById('taxAmount4').textContent = taxAmount.toFixed(4);
+            verifyCalculation(exTaxAmount, taxAmount, totalAmount);
+        }
+        function verifyCalculation(exTax, tax, total) {
+            const verifyTotal2 = (exTax + tax).toFixed(2);
+            const verifyTotal4 = (exTax + tax).toFixed(4);
+            const originalTotal2 = total.toFixed(2);
+            const originalTotal4 = total.toFixed(4);
+            const resultHTML = `
+                <p>2位验证：${verifyTotal2} vs 原值 ${originalTotal2} 
+                    <span class="${verifyTotal2 === originalTotal2 ? 'valid' : 'invalid'}">
+                    ${verifyTotal2 === originalTotal2 ? '✓ 计算一致' : '✗ 计算偏差'}
+                    </span>
+                </p>
+                <p>4位验证：${verifyTotal4} vs 原值 ${originalTotal4} 
+                    <span class="${verifyTotal4 === originalTotal4 ? 'valid' : 'invalid'}">
+                    ${verifyTotal4 === originalTotal4 ? '✓ 计算一致' : '✗ 计算偏差'}
+                    </span>
+                </p>
+            `;
+            document.getElementById('verifyResult').innerHTML = resultHTML;
+        }
+        document.getElementById('taxRate').addEventListener('input', validateInputs);
+        document.getElementById('totalAmount').addEventListener('input', validateInputs);
+    </script>
+</body>
+</html>

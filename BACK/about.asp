@@ -1,0 +1,114 @@
+<%@ Language="VBScript" %>  <!-- ASP基础声明（指定脚本语言，静态页面可省略但建议保留） -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>雅安市纵横计算机网络有限公司 - 专业IT解决方案服务商</title>
+    <style>
+        /* 原有样式完全保留 */
+        body { margin: 0; padding: 0; font-family: "Microsoft YaHei"; }
+        .header { background: #0066CC; color: white; padding: 20px; text-align: center; }
+        .nav { background: #F5F5F5; padding: 10px; text-align: center; }
+        .nav a { margin: 0 15px; color: #333; text-decoration: none; }
+        .nav a:hover { color: #0066CC; }
+        .content { width: 1000px; margin: 30px auto; }
+        .section { margin-bottom: 50px; }
+        .section h2 { color: #0066CC; border-bottom: 2px solid #E0E0E0; padding-bottom: 10px; }
+        .footer { background: #333; color: white; text-align: center; padding: 15px; margin-top: 50px; }
+
+        /* 税价计算器样式保留 */
+        .tax-calculator {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .input-group { margin-bottom: 1.5rem; }
+        .input-group label { display: block; margin-bottom: 0.5rem; color: #333; font-weight: 500; }
+        .input-group input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-family: "Microsoft YaHei"; }
+        .tax-btn { background: #0066CC; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; transition: background 0.3s; font-family: "Microsoft YaHei"; }
+        .tax-btn:hover { background: #0052a3; }
+        .precision-switch { margin: 1rem 0; display: flex; gap: 1rem; }
+        .precision-btn { padding: 5px 10px; border: 1px solid #ddd; cursor: pointer; border-radius: 4px; background: #f5f5f5; }
+        .precision-btn.active { background: #0066CC; color: white; }
+        .tax-result { margin-top: 1.5rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }
+        .verify-result { margin-top: 1rem; padding: 10px; border-radius: 4px; }
+        .valid { background: #d4edda; color: #155724; padding: 5px; border-radius: 3px; }
+        .invalid { background: #f8d7da; color: #721c24; padding: 5px; border-radius: 3px; }
+        .tax-error { color: #dc3545; font-size: 0.9rem; margin-top: 0.5rem; display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>雅安市纵横计算机网络有限公司</h1>
+        <p>诚信为本 · 您的满意是我们最大的荣誉</p>
+    </div>
+
+    <!-- 导航链接：所有.html后缀改为.asp -->
+<div class="nav">
+        <a href="index.asp">首页</a>
+        <a href="about.asp">公司简介</a>
+        <a href="business.asp">业务范围</a>
+        <a href="cooperate.asp">合作客户</a>
+        <a href="mytool.asp">实用工具</a>
+        <a href="contact.asp">联系我们</a>
+        <a href="use_device_data_fix.asp">数据库</a>
+      <a href="https://taitoubiao.com/website" target="_blank" >常用网址</a>
+    </div>
+
+
+
+    <!-- 原有公司简介内容完全保留 -->
+    <div class="content">
+        <div class="section">
+            <h2>公司概况</h2>
+            <p>雅安市纵横计算机网络有限公司成立于1999年，是经雅安市工商行政管理局批准注册的专业IT服务企业，注册资本30万元人民币。公司坐落于雅安市健康路核心商圈，现有两处经营场所（健康路112号、126号），总面积达200余平方米。</p>
+            <h3>核心数据</h3>
+            <ul class="fact-list">
+                <li>成立时间：1999年（深耕IT行业25年）</li>
+                <li>注册资本：30万元人民币</li>
+                <li>员工规模：18人（其中技术团队8人，均持有专业认证）</li>
+                <li>经营面积：200余平方米（两处门店）</li>
+                <li>年服务客户：超800家次</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>发展历程</h2>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-year">1999年</div><p>公司正式成立，初期以计算机销售及维修为核心业务。</p></div>
+                <div class="timeline-item"><div class="timeline-year">2005年</div><p>拓展网络工程业务，完成雅安市多个政府部门局域网搭建项目。</p></div>
+                <div class="timeline-item"><div class="timeline-year">2010年</div><p>成为联想电脑授权经销商，同年荣获"雅安全星级联想专卖店"称号。</p></div>
+                <div class="timeline-item"><div class="timeline-year">2015年</div><p>业务升级至系统集成领域，承接雅安电力集团等大型企业IT运维项目。</p></div>
+                <div class="timeline-item"><div class="timeline-year">2020年至今</div><p>拓展网络安全、视频会议等增值服务，与中国移动雅安分公司等建立长期合作。</p></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>团队与理念</h2>
+            <p>公司核心团队由8名资深技术人员组成，平均从业年限超10年，持有CCNA、MCSE等专业认证。</p>
+            <ul class="fact-list">
+                <li>使命：以专业技术助力客户数字化转型</li>
+                <li>愿景：成为雅安地区最值得信赖的IT服务品牌</li>
+                <li>价值观：诚信、专业、创新、共赢</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>荣誉资质</h2>
+            <div class="honor-list">
+                <div class="honor-item"><p>联想电脑全星级专卖店</p></div>
+                <div class="honor-item"><p>雅安市家电下乡指定销售网点</p></div>
+                <div class="honor-item"><p>富士施乐（中国）授权经销商</p></div>
+                <div class="honor-item"><p>雅安市中小企业IT服务示范单位</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>地址：四川省雅安市健康路112号、126号 | 联系电话：0835-2232136 | 技术支持热线：0835-6208811，13881609876</p>
+        <p>© 2025 雅安市纵横计算机网络有限公司 版权所有</p>
+    </div>
+</body>
+</html>

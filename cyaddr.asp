@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅安市纵横计算机网络有限公司---常用网址 - 快速导航</title>
+    <link rel="icon" href="img/zhlogo32.png" sizes="32x32" type="image/png">
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --light-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #06b6d4;
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", "Microsoft YaHei", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: #334155;
+            line-height: 1.6;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* 导航栏优化 */
+        .nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav a {
+            color: #64748b;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav a:hover {
+            color: var(--primary);
+            background-color: rgba(37, 99, 235, 0.08);
+            transform: translateY(-1px);
+        }
+        
+        .nav a.active {
+            color: var(--primary);
+            font-weight: 500;
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        /* 头部优化 */
+        .header {
+            text-align: center;
+            padding: 30px 0 20px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+            color: white;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 网址容器优化 */
+        .url-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+            align-items: stretch;
+        }
+        
+        .url-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 22px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 不同分类卡片使用不同的顶部标识色 */
+        .url-card:nth-child(1) { border-top: 4px solid var(--primary); }
+        .url-card:nth-child(2) { border-top: 4px solid var(--info); }
+        .url-card:nth-child(3) { border-top: 4px solid var(--success); }
+        .url-card:nth-child(4) { border-top: 4px solid #8b5cf6; }
+        .url-card:nth-child(5) { border-top: 4px solid var(--warning); }
+        .url-card:nth-child(6) { border-top: 4px solid #ec4899; }
+        
+        .url-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .card-title {
+            font-size: 1.15rem;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        
+        /* 为不同分类设置标题颜色 */
+        .url-card:nth-child(1) .card-title { color: var(--primary-dark); }
+        .url-card:nth-child(2) .card-title { color: #0891b2; }
+        .url-card:nth-child(3) .card-title { color: #059669; }
+        .url-card:nth-child(4) .card-title { color: #7c3aed; }
+        .url-card:nth-child(5) .card-title { color: #d97706; }
+        .url-card:nth-child(6) .card-title { color: #be185d; }
+        
+        .url-list {
+            list-style: none;
+            flex: 1;
+        }
+        
+        .url-list li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .url-list a {
+            color: #334155;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 12px;
+            border-radius: 6px;
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .url-list a i {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            width: 16px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .url-list a:hover {
+            color: var(--primary);
+            background-color: rgba(37, 99, 235, 0.07);
+            padding-left: 14px;
+            white-space: normal;
+            overflow: visible;
+        }
+        
+        .url-list a:hover i {
+            color: var(--primary);
+            transform: translateX(2px);
+        }
+        
+        /* 页脚优化 */
+        .footer {
+            text-align: center;
+            padding: 30px 15px;
+            background-color: #1e293b;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 50px;
+            border-top: 3px solid var(--primary);
+        }
+        
+        .footer p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .footer p:last-child {
+            margin-bottom: 0;
+            margin-top: 12px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* 响应式调整优化 */
+        @media (max-width: 992px) {
+            .url-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .url-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .nav-container {
+                gap: 8px;
+            }
+            
+            .nav a {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .url-card {
+                padding: 18px;
+            }
+        }
+
+        /* 添加平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 顶部回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 99;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav">
+        <div class="nav-container">
+            <a href="index.asp"><i class="fas fa-home"></i>首页</a>
+            <a href="about.asp"><i class="fas fa-building"></i>公司简介</a>
+            <a href="business.asp"><i class="fas fa-briefcase"></i>业务范围</a>
+            <a href="cooperate.asp"><i class="fas fa-handshake"></i>合作客户</a>
+            <a href="mytool.asp"><i class="fas fa-calculator"></i>税价计算器</a>
+            <a href="contact.asp"><i class="fas fa-phone"></i>联系我们</a>
+            <a href="cyaddr.asp" target="_blank" class="active"><i class="fas fa-link"></i>常用网址</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 头部标题 -->
+        <div class="header">
+            <div class="header-content">
+                <h1>常用网址导航</h1>
+                <p>雅安纵横 · 常用网站 · 快速访问</p>
+            </div>
+        </div>
+
+        <!-- 网址分类容器 -->
+        <div class="url-container">
+            <!-- 第一行3栏 -->
+            <div class="url-card">
+                <h2 class="card-title"><i class="fas fa-building"></i>政府机构</h2>
+                <ul class="url-list">
+                    <li><a href="https://www.samr.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>国家市场监督管理总局</a></li>
+                    <li><a href="http://www.dpac.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>国家市场监督管理总局缺陷产品管理中心</a></li>
+                    <li><a href="https://www.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>中国政府网</a></li>
+                    <li><a href="https://www.mof.gov.cn/index.htm" target="_blank"><i class="fas fa-external-link-alt"></i>中华人民共和国财政部</a></li>
+                    <li><a href="https://www.mohurd.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>住房和城乡建设部</a></li>
+                    <li><a href="https://www.mofcom.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>商务部</a></li>
+                    <li><a href="https://www.ndrc.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>国家发展和改革委员会</a></li>
+                    <li><a href="http://www.moe.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>教育部</a></li>
+                    <li><a href="https://www.moj.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>司法部</a></li>
+                    <li><a href="https://www.audit.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>审计署</a></li>
+                    <li><a href="https://www.fmprc.gov.cn/web/" target="_blank"><i class="fas fa-external-link-alt"></i>中华人民共和国外交部</a></li>
+                </ul>
+            </div>
+
+            <div class="url-card">
+                <h2 class="card-title"><i class="fas fa-file-invoice-dollar"></i>采购招标</h2>
+                <ul class="url-list">
+                    <li><a href="https://www.ccgp.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>中国政府采购网</a></li>
+                    <li><a href="https://www.ccgp-sichuan.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>四川政府采购网</a></li>
+                    <li><a href="https://ggzyjy.sc.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>四川省公共资源交易信息网</a></li>
+                    <li><a href="https://www.scbid.com/" target="_blank"><i class="fas fa-external-link-alt"></i>四川招投标网-官网</a></li>
+                    <li><a href="https://www.ggzy.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>全国公共资源交易平台</a></li>
+                    <li><a href="http://www.cebpubservice.com/" target="_blank"><i class="fas fa-external-link-alt"></i>中国招标投标公共服务平台</a></li>
+                    <li><a href="https://www.zycg.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>中央政府采购网</a></li>
+                    <li><a href="https://www.weain.mil.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>全军武器装备采购信息网</a></li>
+                    <li><a href="http://b2b.10086.cn/b2b/b2b/listVendorNotice.html?noticeType=2" target="_blank"><i class="fas fa-external-link-alt"></i>中国移动采购网</a></li>
+                    <li><a href="https://chinabidding.mofcom.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>中国国际招标网</a></li>
+                </ul>
+            </div>
+
+            <div class="url-card">
+                <h2 class="card-title"><i class="fas fa-briefcase"></i>企业服务</h2>
+                <ul class="url-list">
+                    <li><a href="https://www.creditchina.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>信用中国</a></li>
+                    <li><a href="https://www.gsxt.gov.cn/index.html" target="_blank"><i class="fas fa-external-link-alt"></i>国家企业信用信息公示系统</a></li>
+                    <li><a href="https://inv-veri.chinatax.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>增值税发票查验平台</a></li>
+                    <li><a href="https://jzsc.mohurd.gov.cn/home" target="_blank"><i class="fas fa-external-link-alt"></i>全国建筑市场监管平台（四库一平台）</a></li>
+                    <li><a href="https://www.qcc.com/web/user/account-info" target="_blank"><i class="fas fa-external-link-alt"></i>企查查-企业信息查询</a></li>
+                    <li><a href="https://www.crcrfsp.org.cn/index.do" target="_blank"><i class="fas fa-external-link-alt"></i>中征应收账款融资服务平台</a></li>
+                    <li><a href="https://ggfw.cnipa.gov.cn/home" target="_blank"><i class="fas fa-external-link-alt"></i>国家知识产权公共服务平台</a></li>
+                    <li><a href="https://www.ccgp.gov.cn/search/cr/" target="_blank"><i class="fas fa-external-link-alt"></i>政府采购严重违法失信名单</a></li>
+                    <li><a href="https://etax.sichuan.chinatax.gov.cn/bszm-web/apps/views/beforeLogin/indexBefore/pageIndex.html?_t=1693463318382" target="_blank"><i class="fas fa-external-link-alt"></i>国家税务总局四川省电子税务局</a></li>
+                </ul>
+            </div>
+
+            <!-- 第二行3栏 -->
+            <div class="url-card">
+                <h2 class="card-title"><i class="fas fa-tools"></i>实用工具</h2>
+                <ul class="url-list">
+                    <li><a href="https://www.youbianku.com/%E6%8C%89%E7%9C%81%E6%9F%A5%E8%AF%A2" target="_blank"><i class="fas fa-external-link-alt"></i>邮政编码查询</a></li>
+                    <li><a href="https://www.cwjyz.com.cn/bank/index.html" target="_blank"><i class="fas fa-external-link-alt"></i>银行联行号查询</a></li>
+                    <li><a href="https://www.acc5.com/tools/toggle_case/" target="_blank"><i class="fas fa-external-link-alt"></i>人民币大小写转换</a></li>
+                    <li><a href="http://qyypt.qiysoft.com/server/csgj/zzsCalculate" target="_blank"><i class="fas fa-external-link-alt"></i>增值税计算器</a></li>
+                    <li><a href="https://www.tianditu.gov.cn/" target="_blank"><i class="fas fa-external-link-alt"></i>天地图-国家地理信息平台</a></li>
+                    <li><a href="https://www.mohrss.gov.cn/SYrlzyhshbzb/laodongguanxi_/fwyd/" target="_blank"><i class="fas fa-external-link-alt"></i>全国最低工资标准查询</a></li>
+                    <li><a href="http://www.yaanzh.cn:8080/jxc/Login.gspx" target="_blank"><i class="fas fa-external-link-alt"></i>管家婆 ERP V3</a></li>
+                </ul>
+            </div>
+
+            <div class="url-card">
+                <h2 class="card-title"><i class="fas fa-graduation-cap"></i>教育考试</h2>
+                <ul class="url-list">
+                    <li><a href="https://cjcx.neea.edu.cn/html1/folder/21083/9970-1.htm" target="_blank"><i class="fas fa-external-link-alt"></i>四六级成绩查询-中国教育考试网</a></li>
+                    <li><a href="https://www.cingta.com/data/sch" target="_blank"><i class="fas fa-external-link-alt"></i>全国第四轮学科评估结果</a></li>
+                    <li><a href="http://gaokao.xdf.cn/202010/11114633.html" target="_blank"><i class="fas fa-external-link-alt"></i>四川高考报名系统入口汇总</a></li>
+                    <li><a href="https://www.sceea.cn/Html/202010/Newsdetail_1572.html" target="_blank"><i class="fas fa-external-link-alt"></i>四川艺体类招生工作规定</a></li>
+                    <li><a href="https://sybm.zk789.cn/MainNotice.aspx" target="_blank"><i class="fas fa-external-link-alt"></i>四川艺体专业统考报名系统</a></li>
+                    <li><a href="http://www.clsedu.org.cn/h/news/tzgg/2022-09-30/1826.html" target="_blank"><i class="fas fa-external-link-alt"></i>第六届“国青杯”艺术设计征集</a></li>
+                    <li><a href="http://qbview.url.cn/getResourceInfo?appid=62&url=http%3A%2F%2F182.150.40.106%3A8055%2Fgaozhong%2Fgaozhong%2Fsearch.html%3Fnsukey%3Di9lHwgv7fRDnlRaPXqghQIxkwCUI85hr97in5n5VCkS08GZvjjp0Zri%252BgywkoF50A9TfjPyIyy5mqIGCztWrMAf2KNfEqy89i4%252BdFCRozDzexrLRRveITWV%252BhxuUonPIDLaCcLTBVenU75ji%252BRJZCwva8eDZEqCXEvEAtiY2A3XaMHUsslkdZ94%252FZlzphOFf%252Fvq2jsDhwIwiF1l8KXiOwA%253D%253D&openid=ooa-VuGbyDthHeFxaWmc3PSE7SE4&version=10000&doview=1&platformtype=700" target="_blank"><i class="fas fa-external-link-alt"></i>成都外国语学校高中招生系统</a></li>
+                </ul>
+            </div>
+
+            <div class="url-card">
+                <h2 class="card-title"><i class="fas fa-gamepad"></i>休闲娱乐</h2>
+                <ul class="url-list">
+                    <li><a href="http://www.baidu.com" target="_blank"><i class="fas fa-external-link-alt"></i>百度一下</a></li>
+                    <li><a href="http://www.360doc.cn/article/11967097_381777401.html" target="_blank"><i class="fas fa-external-link-alt"></i>成都麻将（缺一门）赢牌技巧</a></li>
+                    <li><a href="https://chejiahao.m.autohome.com.cn/info/3353439" target="_blank"><i class="fas fa-external-link-alt"></i>C照牵引拖挂房车法规汇总</a></li>
+                    <li><a href="http://fangche.chezg.cn/fangche/13797/" target="_blank"><i class="fas fa-external-link-alt"></i>房车GB7258标准规定</a></li>
+                    <li><a href="season.asp" target="_blank"><i class="fas fa-external-link-alt"></i>地球公转与节气的关系</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <p>地址：四川省雅安市健康路112号、126号</p>
+        <p>联系电话：0835-2232136 | 技术支持热线：0835-6208811，13881609876</p>
+        <p>© 2025 雅安市纵横计算机网络有限公司 版权所有</p>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // 回到顶部按钮功能
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 为导航项添加当前页面标识
+        const currentPage = window.location.pathname.split('/').pop();
+        const navLinks = document.querySelectorAll('.nav a');
+        
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

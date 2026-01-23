@@ -1,0 +1,132 @@
+<%@ Language="VBScript" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>联系我们 - 雅安市纵横计算机网络有限公司</title>
+    <style>
+        /* 原有样式完全保留，无修改 */
+        body { margin: 0; padding: 0; font-family: "Microsoft YaHei", sans-serif; line-height: 1.7; color: #333; }
+        .header { background: #0066CC; color: white; padding: 20px; text-align: center; }
+        .nav { background: #F5F5F5; padding: 12px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav a { margin: 0 18px; color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav a:hover { color: #0066CC; }
+        .content { width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .section-title { color: #0066CC; border-bottom: 2px solid #E0E0E0; padding-bottom: 10px; margin: 40px 0 25px; }
+        .contact-container { display: flex; gap: 40px; margin-top: 30px; }
+        .contact-info { flex: 1; }
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 25px; }
+        .info-item .icon { width: 40px; height: 40px; background: #0066CC; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0; }
+        .info-item .text h4 { margin: 0 0 5px 0; color: #0066CC; }
+        .info-item .text p { margin: 0; }
+        .nav-btns { margin-top: 10px; display: flex; gap: 8px; }
+        .nav-btn { padding: 4px 12px; font-size: 14px; text-decoration: none; border-radius: 3px; transition: background 0.3s; }
+        .amap-btn { background: #2AAD6F; color: white; }
+        .amap-btn:hover { background: #1B8846; }
+        .bmap-btn { background: #1E88E5; color: white; }
+        .bmap-btn:hover { background: #0D47A1; }
+        /* 地图容器样式保留，仅移除占位符背景色（避免与地图重叠） */
+        .map-container { margin-top: 30px; height: 300px; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid #f0f7ff; }
+        /* 移除原占位符样式，替换为地图 */
+        .contact-form { flex: 1; background: #f9f9f9; padding: 30px; border-radius: 8px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px 15px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; font-size: 16px; }
+        .form-group textarea { min-height: 150px; resize: vertical; }
+        .submit-btn { background: #0066CC; color: white; border: none; padding: 12px 30px; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        .submit-btn:hover { background: #0052a3; }
+        .footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>雅安市纵横计算机网络有限公司</h1>
+        <p>诚信为本 · 您的满意是我们最大的荣誉</p>
+    </div>
+    <div class="nav">
+ <div class="nav">
+        <a href="index.asp">首页</a>
+        <a href="about.asp">公司简介</a>
+        <a href="business.asp">业务范围</a>
+        <a href="cooperate.asp">合作客户</a>
+        <a href="mytool.asp">实用工具</a>
+        <a href="contact.asp">联系我们</a>
+        <a href="use_device_data_fix.asp">数据库</a>
+      <a href="https://taitoubiao.com/website" target="_blank" >常用网址</a>
+    </div>
+    <div class="content">
+        <h2 class="section-title">联系我们</h2>
+        <p>无论您有设备采购、技术支持或项目合作需求，欢迎通过以下方式与我们联系，我们将在24小时内回复您的咨询。</p>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>联系方式</h3>
+                <div class="info-item">
+                    <div class="icon">📍</div>
+                    <div class="text">
+                        <h4>公司地址</h4>
+                        <p>主店：四川省雅安市健康路112号</p>
+                        <div class="nav-btns">
+                            <a href="https://uri.amap.com/marker?position=103.004052,29.979613&name=雅安市纵横计算机网络有限公司（主店）&address=四川省雅安市健康路112号&coordinate=gaode&callnative=1" class="nav-btn amap-btn" target="_blank">高德导航</a>
+                            <a href="https://api.map.baidu.com/marker?location=29.979613,103.004052&title=雅安市纵横计算机网络有限公司（主店）&content=四川省雅安市健康路112号&output=html&src=公司官网" class="nav-btn bmap-btn" target="_blank">百度导航</a>
+                        </div>
+                        <p style="margin-top: 8px;">分店：四川省雅安市健康路126号</p>
+                        <div class="nav-btns">
+                            <a href="https://uri.amap.com/marker?position=103.004301,29.979448&name=雅安市纵横计算机网络有限公司（分店）&address=四川省雅安市健康路126号&coordinate=gaode&callnative=1" class="nav-btn amap-btn" target="_blank">高德导航</a>
+                            <a href="https://api.map.baidu.com/marker?location=29.979448,103.004301&title=雅安市纵横计算机网络有限公司（分店）&content=四川省雅安市健康路126号&output=html&src=公司官网" class="nav-btn bmap-btn" target="_blank">百度导航</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">📞</div>
+                    <div class="text">
+                        <h4>联系电话</h4>
+                        <p>业务咨询：0835-2232136<br>技术支持：0835-6208811</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">⏰</div>
+                    <div class="text">
+                        <h4>营业时间</h4>
+                        <p>周一至周五：9:00 - 18:00<br>周六至周日：10:00 - 16:00（节假日除外）</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">✉️</div>
+                    <div class="text">
+                        <h4>电子邮箱</h4>
+                        <p>业务合作：10520778@qq.com<br>技术咨询：248769886@qq.com</p>
+                    </div>
+                </div>
+                <!-- 核心修改：替换占位符为百度地图（定位到健康路126号） -->
+                
+            </div>
+            <div class="contact-form">
+                <h3>在线留言</h3>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">您的姓名</label>
+                        <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">联系电话</label>
+                        <input type="tel" id="phone" name="phone" placeholder="请输入您的联系电话" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">电子邮箱</label>
+                        <input type="email" id="email" name="email" placeholder="请输入您的邮箱地址" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">留言内容</label>
+                        <textarea id="message" name="message" placeholder="请描述您的需求（如设备采购、技术支持、项目合作等）" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">提交留言</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>地址：四川省雅安市健康路112号、126号 | 联系电话：0835-2232136 | 技术支持热线：0835-6208811</p>
+        <p>© 2025 雅安市纵横计算机网络有限公司 版权所有</p>
+    </div>
+</body>
+</html>
