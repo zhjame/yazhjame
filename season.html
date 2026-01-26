@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8"> <!-- 统一编码为UTF-8，与其他页面一致 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 补充响应式视图支持 -->
+    <meta charset="UTF-8"> <!-- 明确声明编码为UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>雅安市纵横计算机网络有限公司---地球公转与节气的关系</title>
     <link rel="icon" href="img/zhlogo32.png" sizes="32x32" type="image/png">
     <style>
@@ -211,29 +211,29 @@
     </style>
 </head>
 <body>
-    <!-- 导航栏：统一修改为.html后缀，清理无效动态链接 -->
+    <!-- 导航栏：统一.html后缀 -->
     <div class="nav">
         <div class="nav-container">
-            <a href="index.html">首页</a> <!-- 原 index.asp → index.html -->
-            <a href="about.html">公司简介</a> <!-- 原 about.asp → about.html -->
-            <a href="business.html">业务范围</a> <!-- 原 business.asp → business.html -->
-            <a href="cooperate.html">合作客户</a> <!-- 原 cooperate.asp → cooperate.html -->
-            <a href="mytool.html">税价计算器</a> <!-- 原 mytool.asp → mytool.html -->
-            <a href="contact.html">联系我们</a> <!-- 原 contact.asp → contact.html -->
-            <a href="#" onclick="return false;">数据库</a> <!-- 原动态链接 use_device_data_fix.asp 改为无效链接，避免404 -->
-            <a href="cyaddr.html" target="_blank">常用网址</a> <!-- 原 cyaddr.asp → cyaddr.html -->
-            <a href="season.html" class="active">地球公转与节气</a> <!-- 原 season.asp → season.html，保留active类 -->
+            <a href="index.html">首页</a>
+            <a href="about.html">公司简介</a>
+            <a href="business.html">业务范围</a>
+            <a href="cooperate.html">合作客户</a>
+            <a href="mytool.html">税价计算器</a>
+            <a href="contact.html">联系我们</a>
+            <a href="#" onclick="return false;">数据库</a>
+            <a href="cyaddr.html" target="_blank">常用网址</a>
+            <a href="season.html" class="active">地球公转与节气</a>
         </div>
     </div>
     <div class="container">
-        <!-- 头部标题：移除ASP动态时间代码，改为静态提示 -->
+        <!-- 头部标题：移除动态代码 -->
         <div class="header">
             <div class="header-content">
                 <h1>地球公转与节气的关系</h1>
-                <p>清晰解析公转位置、太阳直射点与节气的对应逻辑 | 科普内容实时更新</p> <!-- 移除 <%=Now()%> 动态代码 -->
+                <p>清晰解析公转位置、太阳直射点与节气的对应逻辑 | 科普内容实时更新</p>
             </div>
         </div>
-        <!-- 内容卡片：保留所有静态科普内容 -->
+        <!-- 内容卡片：确保中文无编码冲突 -->
         <div class="content-card">
             <h2 class="content-title">核心逻辑：公转位置决定节气</h2>
             <p>地球绕太阳公转时，地轴始终倾斜23.5°（黄赤交角），导致太阳直射点在南北回归线之间周期性移动，每移动15°（黄道360°÷24节气）对应一个节气。以下表格按四季排序，明确各节气的公转位置、直射点及核心现象：</p>
@@ -416,7 +416,7 @@
             </div>
         </div>
     </div>
-    <!-- 页脚与全站保持一致 -->
+    <!-- 页脚 -->
     <div class="footer">
         <p>地址：四川省雅安市健康路112号、126号</p>
         <p>联系电话：0835-2232136 | 技术支持热线：0835-6208811，13881609876</p>
