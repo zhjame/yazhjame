@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>俄罗斯方块</title>
+    <style>
+        body {
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #game-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        #game-board {
+            border: 2px solid #ecf0f1;
+            background-color: #34495e;
+        }
+
+        #side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            color: white;
+        }
+
+        #next-piece {
+            border: 2px solid #ecf0f1;
+            background-color: #34495e;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        select {
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-board" width="300" height="600"></canvas>
+        <div id="side-panel">
+            <canvas id="next-piece" width="120" height="120"></canvas>
+            <div class="controls">
+                <div>得分: <span id="score">0</span></div>
+                <div>等级: <span id="level">1</span></div>
+                <select id="difficulty">
+                    <option value="1">简单</option>
+                    <option value="2">中等</option>
+                    <option value="3">困难</option>
+                </select>
+                <button onclick="newGame()">新游戏</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+const BOARD_WIDTH = 10;
+const BOARD_HEIGHT = 20;
+const BLOCK_SIZE = 30;
+const SHAPES = [
+    [[1,1,1,1]], // I
+    [[1,1,1],[0,1,0]], // T
+    [[1,1,1],[1,0,0]], // L
+    [[1,1,1],[0,0,1]], // J
+    [[1,1],[1,1]], // O
+    [[1,1,0],[0,1,1]], // S
+    [[0,1,1],[1,1,0]] // Z
+];
+const COLORS = ['#e74c3c', '#2ecc71', '#3498db', '#9b59b6', 
+               '#f1c40f', '#1abc9c', '#e67e22'];
+
+let gameBoard = [];
+let currentPiece = null;
+let nextPiece = null;
+let score = 0;
+let level = 1;
+let gameLoop = null;
+let isGameOver = false;
+
+const canvas = document.getElementById('game-board');
+const ctx = canvas.getContext('2d');
+const nextCanvas = document.getElementById('next-piece');
+const nextCtx = nextCanvas.getContext('2d');
+
+class Piece {
+    constructor(shapeIndex) {
+        this.shape = SHAPES[shapeIndex];
+        this.color = COLORS[shapeIndex];
+        this.x = Math.floor(BOARD_WIDTH/2) - Math.floor(this.shape[0].length/2);
+        this.y = 0;
+    }
+
+    rotate() {
+        const newShape = [];
+        for (let y = 0; y < this.shape[0].length; y++) {
+            const newRow = [];
+            for (let x = this.shape.length - 1; x >= 0; x--) {
+                newRow.push(this.shape[x][y]);
+            }
+            newShape.push(newRow);
+        }
+        return newShape;
+    }
+}
+
+function initBoard() {
+    gameBoard = Array(BOARD_HEIGHT).fill().map(() => Array(BOARD_WIDTH).fill(0));
+}
+
+function drawBoard() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw existing blocks
+    for (let y = 0; y < BOARD_HEIGHT; y++) {
+        for (let x = 0; x < BOARD_WIDTH; x++) {
+            if (gameBoard[y][x]) {
+                ctx.fillStyle = COLORS[gameBoard[y][x] - 1];
+                ctx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, 
+                            BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+            }
+        }
+    }
+
+    // Draw current piece
+    if (currentPiece) {
+        ctx.fillStyle = currentPiece.color;
+        currentPiece.shape.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value) {
+                    ctx.fillRect(
+                        (currentPiece.x + x) * BLOCK_SIZE,
+                        (currentPiece.y + y) * BLOCK_SIZE,
+                        BLOCK_SIZE - 1,
+                        BLOCK_SIZE - 1
+                    );
+                }
+            });
+        });
+    }
+}
+
+function drawNextPiece() {
+    nextCtx.clearRect(0, 0, nextCanvas.width, nextCanvas.height);
+    if (nextPiece) {
+        nextCtx.fillStyle = nextPiece.color;
+        nextPiece.shape.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value) {
+                    nextCtx.fillRect(
+                        x * BLOCK_SIZE + 15,
+                        y * BLOCK_SIZE + 15,
+                        BLOCK_SIZE - 1,
+                        BLOCK_SIZE - 1
+                    );
+                }
+            });
+        });
+    }
+}
+
+function collisionCheck(newX, newY, shape) {
+    return shape.some((row, y) => 
+        row.some((value, x) => {
+            const boardX = newX + x;
+            const boardY = newY + y;
+            return (
+                value &&
+                (boardX < 0 ||
+                boardX >= BOARD_WIDTH ||
+                boardY >= BOARD_HEIGHT ||
+                (boardY >= 0 && gameBoard[boardY][boardX]))
+            );
+        })
+    );
+}
+
+function mergePiece() {
+    currentPiece.shape.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value) {
+                gameBoard[currentPiece.y + y][currentPiece.x + x] = 
+                    COLORS.indexOf(currentPiece.color) + 1;
+            }
+        });
+    });
+}
+
+function clearLines() {
+    let linesCleared = 0;
+    
+    for (let y = BOARD_HEIGHT - 1; y >= 0; y--) {
+        if (gameBoard[y].every(cell => cell)) {
+            gameBoard.splice(y, 1);
+            gameBoard.unshift(Array(BOARD_WIDTH).fill(0));
+            linesCleared++;
+            y++;
+        }
+    }
+
+    if (linesCleared) {
+        score += linesCleared * 100 * level;
+        document.getElementById('score').textContent = score;
+        
+        if (score >= level * 1000) {
+            level++;
+            document.getElementById('level').textContent = level;
+        }
+    }
+}
+
+function moveDown() {
+    currentPiece.y++;
+    if (collisionCheck(currentPiece.x, currentPiece.y, currentPiece.shape)) {
+        currentPiece.y--;
+        mergePiece();
+        clearLines();
+        
+        if (currentPiece.y === 0) {
+            gameOver();
+            return;
+        }
+        
+        currentPiece = nextPiece;
+        nextPiece = new Piece(Math.floor(Math.random() * SHAPES.length));
+        drawNextPiece();
+    }
+}
+
+function moveHorizontal(direction) {
+    const newX = currentPiece.x + direction;
+    if (!collisionCheck(newX, currentPiece.y, currentPiece.shape)) {
+        currentPiece.x = newX;
+    }
+}
+
+function rotatePiece() {
+    const newShape = currentPiece.rotate();
+    if (!collisionCheck(currentPiece.x, currentPiece.y, newShape)) {
+        currentPiece.shape = newShape;
+    }
+}
+
+function gameOver() {
+    isGameOver = true;
+    clearInterval(gameLoop);
+    alert(`游戏结束！得分: ${score}`);
+}
+
+function update() {
+    if (!isGameOver) {
+        moveDown();
+        drawBoard();
+    }
+}
+
+document.addEventListener('keydown', (e) => {
+    if (!currentPiece || isGameOver) return;
+
+    switch(e.key) {
+        case 'ArrowLeft':
+            moveHorizontal(-1);
+            break;
+        case 'ArrowRight':
+            moveHorizontal(1);
+            break;
+        case 'ArrowDown':
+            moveDown();
+            break;
+        case 'ArrowUp':
+            rotatePiece();
+            break;
+    }
+    drawBoard();
+});
+
+function newGame() {
+    clearInterval(gameLoop);
+    isGameOver = false;
+    score = 0;
+    level = 1;
+    document.getElementById('score').textContent = 0;
+    document.getElementById('level').textContent = 1;
+    
+    const difficulty = document.getElementById('difficulty').value;
+    const speed = 1000 - (difficulty - 1) * 250;
+    
+    initBoard();
+    currentPiece = new Piece(Math.floor(Math.random() * SHAPES.length));
+    nextPiece = new Piece(Math.floor(Math.random() * SHAPES.length));
+    drawNextPiece();
+    gameLoop = setInterval(update, speed);
+}
+
+// 初始化游戏
+initBoard();
+newGame();
+</script>
+</body>
+</html>

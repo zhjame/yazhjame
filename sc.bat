@@ -1,35 +1,11 @@
-@echo off
-chcp 65001 >nul
-echo 🔄 Starting to sync local website to GitHub...
+# 1. 确保你在 main 分支
+git checkout main
 
-cd /d D:\myweb
-if %errorlevel% neq 0 (
-    echo ❌ Error: Cannot switch to D:\myweb
-    pause
-    exit /b 1
-)
-
-echo 📥 Pulling latest remote changes...
-git pull origin main
-if %errorlevel% neq 0 (
-    echo ❌ Error: Failed to pull remote code. Check network or repo URL.
-    pause
-    exit /b 1
-)
-
-echo 📤 Staging local changes...
+# 2. 添加所有本地文件
 git add .
 
-echo 📝 Committing changes...
-git commit -m "Auto sync: %date% %time%"
+# 3. 提交本地更改（必须先有本地提交）
+git commit -m "强制同步本地网站文件"
 
-echo 🚀 Pushing to GitHub...
-git push origin main
-if %errorlevel% neq 0 (
-    echo ❌ Error: Push failed. Check permissions or network.
-    pause
-    exit /b 1
-)
-
-echo ✅ Sync completed! Wait 1-2 minutes and refresh your website.
-pause
+# 4. 强制推送本地分支到远程（关键！）
+git push --force origin main
